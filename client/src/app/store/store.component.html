@@ -5,10 +5,12 @@
       <div style="background-color: #444444; height: 3em; padding-top: 5%">
         <h5 class="text-warning ml-3">Sort</h5>
       </div>
-      <select class="custom-select mb-3">
-        <option selected>Alphabetical</option>
-        <option>Price: Low to High</option>
-        <option>Price: High to Low</option>
+      <select class="custom-select mb-3" (change)="onSortSelected($event.target.value)">
+        <option *ngFor="let sort of sortOptions"
+                [value]="sort.value"
+        >
+          {{sort.name}}
+        </option>
       </select>
 
       <div style="background-color: #444444; height: 3em; padding-top: 5%">

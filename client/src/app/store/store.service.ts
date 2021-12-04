@@ -25,6 +25,10 @@ export class StoreService {
             params = params.append('typeId', storeParams.typeId.toString());
         }
 
+        if (storeParams.search) {
+            params = params.append('search', storeParams.search)
+        }
+
         params = params.append('sort', storeParams.sort);
         params = params.append('pageIndex', storeParams.pageNumber.toString());
         params = params.append('pageSize', storeParams.pageSize.toString());

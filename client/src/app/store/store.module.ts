@@ -4,7 +4,7 @@ import {StoreComponent} from './store.component';
 import {ProductItemComponent} from './product-item/product-item.component';
 import {SharedModule} from "../shared/shared.module";
 import {ProductDetailsComponent} from './product-details/product-details.component';
-import {RouterModule} from "@angular/router";
+import {StoreRoutingModule} from "./store-routing.module";
 
 
 @NgModule({
@@ -13,13 +13,10 @@ import {RouterModule} from "@angular/router";
         ProductItemComponent,
         ProductDetailsComponent
     ],
-    exports: [
-        StoreComponent
-    ],
     imports: [
         CommonModule,
         SharedModule,
-        RouterModule
+        StoreRoutingModule
     ]
 })
 export class StoreModule {

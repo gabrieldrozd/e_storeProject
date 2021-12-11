@@ -4,7 +4,9 @@
     <attachedFolders>
       <Path>client</Path>
     </attachedFolders>
-    <explicitIncludes />
+    <explicitIncludes>
+      <Path>docker-compose.yml</Path>
+    </explicitIncludes>
     <explicitExcludes />
   </component>
 </project>

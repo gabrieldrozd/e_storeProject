@@ -41,7 +41,7 @@ namespace API.Controllers
         [HttpGet("{productId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<ProductToReturnDTO>> GetProduct(int productId)
+        public async Task<ActionResult<ProductToReturnDto>> GetProduct(int productId)
         {
             var spec = new ProductsWithBrandsAndTypesSpecification(productId);
 
@@ -52,7 +52,7 @@ namespace API.Controllers
                 return NotFound(new ApiResponse(404));
             }
 
-            var productToReturn = _mapper.Map<Product, ProductToReturnDTO>(product);
+            var productToReturn = _mapper.Map<Product, ProductToReturnDto>(product);
 
             return Ok(productToReturn);
         }
@@ -65,7 +65,7 @@ namespace API.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Pagination<ProductToReturnDTO>>> GetProducts(
+        public async Task<ActionResult<Pagination<ProductToReturnDto>>> GetProducts(
             [FromQuery]ProductSpecParams productParams)
         {
             var spec = new ProductsWithBrandsAndTypesSpecification(productParams);
@@ -81,9 +81,9 @@ namespace API.Controllers
                 return NotFound(new ApiResponse(404));
             }
 
-            var data = _mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturnDTO>>(products);
+            var data = _mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturnDto>>(products);
 
-            var productsToReturn = new Pagination<ProductToReturnDTO>(
+            var productsToReturn = new Pagination<ProductToReturnDto>(
                 productParams.PageIndex, productParams.PageSize, totalItems, data);
 
             return Ok(productsToReturn);

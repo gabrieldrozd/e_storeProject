@@ -18,4 +18,9 @@ export class NavBarComponent implements OnInit {
         this.basket$ = this.basketService.basket$;
     }
 
+    reloadPage() {
+        setTimeout(()=>{
+            window.location.reload();
+        }, 100);
+    }
 }

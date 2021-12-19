@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Core.Entities.OrderAggregate;
 
 namespace Business.Data
 {
@@ -19,7 +20,7 @@ namespace Business.Data
                 if (!context.ProductBrands.Any())
                 {
                     var brandsData = 
-                        File.ReadAllText("../Business/Data/SeedData/brands.json");
+                        await File.ReadAllTextAsync("../Business/Data/SeedData/brands.json");
 
                     var brands = JsonSerializer.Deserialize<List<ProductBrand>>(brandsData);
 
@@ -34,7 +35,7 @@ namespace Business.Data
                 if (!context.ProductTypes.Any())
                 {
                     var typesData =
-                        File.ReadAllText("../Business/Data/SeedData/types.json");
+                        await File.ReadAllTextAsync("../Business/Data/SeedData/types.json");
 
                     var types = JsonSerializer.Deserialize<List<ProductType>>(typesData);
 
@@ -49,13 +50,28 @@ namespace Business.Data
                 if (!context.Products.Any())
                 {
                     var productsData =
-                        File.ReadAllText("../Business/Data/SeedData/products.json");
+                        await File.ReadAllTextAsync("../Business/Data/SeedData/products.json");
 
                     var products = JsonSerializer.Deserialize<List<Product>>(productsData);
 
                     foreach (var product in products)
                     {
                         context.Products.Add(product);
+                    }
+
+                    await context.SaveChangesAsync();
+                }
+                
+                if (!context.DeliveryMethods.Any())
+                {
+                    var dmData =
+                        await File.ReadAllTextAsync("../Business/Data/SeedData/delivery.json");
+
+                    var methods = JsonSerializer.Deserialize<List<DeliveryMethod>>(dmData);
+
+                    foreach (var item in methods)
+                    {
+                        context.DeliveryMethods.Add(item);
                     }
 
                     await context.SaveChangesAsync();

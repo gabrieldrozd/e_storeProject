@@ -14,3 +14,14 @@ label.xng-breadcrumb-trail {
 .xng-breadcrumb-separator {
     padding: 0 0;
 }
+
+.top-corners-rounded {
+    background-color: #444444;
+    color: #f0ad4e;
+    border-radius: 15px 15px 0 0;
+}
+
+.bottom-corners-rounded {
+    background-color: #444444;
+    border-radius: 0 0 15px 15px;
+}

@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using API.DTOs;
+﻿using API.DTOs;
 using API.Errors;
 using API.Extensions;
 using AutoMapper;
@@ -18,11 +14,10 @@ namespace API.Controllers
     {
         private readonly IOrderService _orderService;
         private readonly IMapper _mapper;
-
         public OrdersController(IOrderService orderService, IMapper mapper)
         {
-            _orderService = orderService;
             _mapper = mapper;
+            _orderService = orderService;
         }
 
         [HttpPost]
@@ -32,34 +27,33 @@ namespace API.Controllers
 
             var address = _mapper.Map<AddressDto, Address>(orderDto.ShipToAddress);
 
-            var order = await _orderService.CreateOrderAsync(email, orderDto.DeliveryMethodId,
-                orderDto.BasketId, address);
+            var order = await _orderService.CreateOrderAsync(email, orderDto.DeliveryMethodId, orderDto.BasketId, address);
 
-            if (order == null) return BadRequest(new ApiResponse(400, "Problem with creating order"));
+            if (order == null) return BadRequest(new ApiResponse(400, "Problem creating order"));
 
             return Ok(order);
         }
 
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<Order>>> GetOrders()
+        public async Task<ActionResult<IReadOnlyList<OrderDto>>> GetOrdersForUser()
         {
             var email = HttpContext.User.RetrieveEmailFromPrincipal();
 
             var orders = await _orderService.GetOrdersForUserAsync(email);
 
-            return Ok(orders);
+            return Ok(_mapper.Map<IReadOnlyList<Order>, IReadOnlyList<OrderToReturnDto>>(orders));
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Order>> GetOrderById(int id)
+        public async Task<ActionResult<OrderToReturnDto>> GetOrderByIdForUser(int id)
         {
             var email = HttpContext.User.RetrieveEmailFromPrincipal();
 
             var order = await _orderService.GetOrderByIdAsync(id, email);
 
             if (order == null) return NotFound(new ApiResponse(404));
-            
-            return order;
+
+            return _mapper.Map<Order, OrderToReturnDto>(order);
         }
 
         [HttpGet("deliveryMethods")]

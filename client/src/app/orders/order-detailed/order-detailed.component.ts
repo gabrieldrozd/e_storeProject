@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { IOrder } from 'src/app/shared/models/order';
-import { ActivatedRoute } from '@angular/router';
-import { BreadcrumbService } from 'xng-breadcrumb';
-import { OrdersService } from '../orders.service';
+import {Component, OnInit} from '@angular/core';
+import {IOrder} from 'src/app/shared/models/order';
+import {ActivatedRoute} from '@angular/router';
+import {BreadcrumbService} from 'xng-breadcrumb';
+import {OrdersService} from '../orders.service';
 
 @Component({
     selector: 'app-order-detailed',
@@ -12,7 +12,8 @@ import { OrdersService } from '../orders.service';
 export class OrderDetailedComponent implements OnInit {
     order: IOrder;
 
-    constructor(private route: ActivatedRoute, private breadcrumbService: BreadcrumbService, private ordersService: OrdersService) {
+    constructor(private route: ActivatedRoute, private breadcrumbService: BreadcrumbService,
+                private ordersService: OrdersService) {
         this.breadcrumbService.set('@OrderDetailed', '');
     }
 

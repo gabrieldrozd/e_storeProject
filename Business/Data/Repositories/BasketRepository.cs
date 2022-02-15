@@ -27,7 +27,6 @@ namespace Business.Data.Repositories
         {
             var created = await _database.StringSetAsync(basket.Id, 
                 JsonSerializer.Serialize(basket), TimeSpan.FromDays(30));
-
             if (!created)
             {
                 return null;

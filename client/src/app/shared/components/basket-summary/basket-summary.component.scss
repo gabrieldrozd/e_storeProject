@@ -13,3 +13,11 @@
     }
 }
 
+table tr {
+    border-bottom: 2px solid #A0A0A0;
+}
+
+ table tr:last-child {
+     border-bottom: none;
+ }
+
